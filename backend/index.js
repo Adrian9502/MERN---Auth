@@ -14,7 +14,7 @@ app.use(express.json()); // allow us to parse incoming json data
 app.use(cookieParser());
 // run the server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}...`);
+  console.log(`-BACKEND SERVER RUNNING' ON PORT: ${PORT}...`);
 });
 
 // verify node env
