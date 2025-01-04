@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Input from "../components/Input";
-import { User, Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { User, Mail, Lock, Eye, EyeOff, Loader } from "lucide-react";
 import { Link } from "react-router-dom";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
 export default function Signup() {
@@ -9,6 +9,8 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   function handleSignup(e) {
     e.preventDefault();
     console.log("Signup");
@@ -67,12 +69,17 @@ export default function Signup() {
           <PasswordStrengthMeter password={password} />
           {/* sign up button */}
           <motion.button
+            disabled={loading}
             className="mt-5 w-full py-3 px-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-lg shadow-lg hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             type="submit"
           >
-            Sign Up
+            {loading ? (
+              <Loader className="h-6 w-6 animate-spin mx-auto" />
+            ) : (
+              "Sign Up"
+            )}
           </motion.button>
         </form>
       </div>
