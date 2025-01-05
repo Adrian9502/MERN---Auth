@@ -4,6 +4,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import VerifyEmail from "./pages/VerifyEmail";
+import { Toaster } from "react-hot-toast";
 function App() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-green-900 to-emerald-900 flex items-center justify-center relative overflow-hidden">
@@ -35,6 +36,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
       </Routes>
+      <Toaster />
     </main>
   );
 }
