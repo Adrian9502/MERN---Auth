@@ -10,7 +10,6 @@ import ForgotPassword from "./pages/ForgotPassword";
 import { useEffect } from "react";
 import LoadingSpinner from "./components/LoadingSpinner";
 import ResetPassword from "./pages/ResetPassword";
-import NotFound from "./pages/NotFound";
 // protect routes that require authentication
 
 const ProtectedRoute = ({ children }) => {
