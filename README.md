@@ -17,10 +17,23 @@ This is a simple authentication system built with the MERN stack (MongoDB, Expre
 - **Authentication**: JWT tokens, Cookie-based session management
 - **Email Service**: Mailtrap and Nodemailer (for email verification and password recovery)
 
+## Website Preview
+
+![login](./preview/login.png)
+![signup](./preview/signup.png)
+![home](./preview/home.png)
+![forgot-password](./preview/forgot-password.png)
+
+## Link
+
+[Click here](https://mern-advance-auth-system.vercel.app/)
+
 ## Setup Instructions
+
 Login to Mailtrap or register your account and find your mailtrap api (located at the sidebar)
 
 ### Prerequisites
+
 - Node.js
 - MongoDB
 
@@ -33,30 +46,33 @@ Login to Mailtrap or register your account and find your mailtrap api (located a
    ```
 2. Install backend dependencies:
 
-  ```bash
-    cd backend
-    npm install
-  ```
+```bash
+  cd backend
+  npm install
+```
 
 3. Install frontend dependencies:
 
-  ```bash
-  cd frontend
-  npm install
-  ```
+```bash
+cd frontend
+npm install
+```
+
 4. Set up your environment variables for the backend:
 
-  ```bash
-  MONGO_URI= YOUR MONGO DB CONNECTION STRING
-  PORT = 5000
-  JWT_SECRET = YOUR SECRET KEY
-  NODE_ENV = development
-  MAILTRAP_TOKEN = YOUR MAILTRAP TOKEN
-  MAILTRAP_USER = smtp@mailtrap.io
-  MAILTRAP_PASS = YOUR MAILTRAP PASS
-  CLIENT_URL = http://localhost:5173
-  ```
+```bash
+MONGO_URI= YOUR MONGO DB CONNECTION STRING
+PORT = 5000
+JWT_SECRET = YOUR SECRET KEY
+NODE_ENV = development
+MAILTRAP_TOKEN = YOUR MAILTRAP TOKEN
+MAILTRAP_USER = smtp@mailtrap.io
+MAILTRAP_PASS = YOUR MAILTRAP PASS
+CLIENT_URL = http://localhost:5173
+```
+
 ## Routes
+
 - **POST /check-auth**: Check if the user is already logged in and will redirect to the home page.
 - **POST /register**: Register a new user (sends verification email).
 - **POST /verify-email**: Verify user's email with the code.
@@ -70,5 +86,6 @@ All protected routes require a valid JWT token in the Authorization header.
 Make sure to configure your email service for sending emails (e.g., Gmail, SendGrid).
 
 ## Credit
+
 This project is based on a YouTube tutorial. I created this project because I was curious about how email sending and password recovery work in Express.js.  
 Big credit to [As a Programmer](https://www.youtube.com/@asaprogrammer_) for this [video!](https://www.youtube.com/watch?v=pmvEgZC55Cg). I learned a lot!
