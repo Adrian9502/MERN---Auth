@@ -5,13 +5,8 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import cors from "cors";
 dotenv.config();
-const app = express();
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(cookieParser());
 
-// Connect to database
-connectDB();
+const app = express();
 
 // Middleware
 const corsOptions = {
@@ -22,6 +17,13 @@ const corsOptions = {
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
 };
+
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(cookieParser());
+
+// Connect to database
+connectDB();
 
 // Root route
 app.get("/", (req, res) => {
