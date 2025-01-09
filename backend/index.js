@@ -10,10 +10,19 @@ const app = express();
 
 // Middleware
 const corsOptions = {
-  origin:
-    process.env.NODE_ENV === "production"
-      ? "https://mern-advance-auth-system.vercel.app"
-      : "http://localhost:5173",
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      "https://mern-advance-auth-system.vercel.app", // Production URL
+      "http://localhost:5173", // Local development URL
+    ];
+
+    // If the origin is in the allowedOrigins array, allow the request
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
 };
