@@ -6,6 +6,9 @@ import dotenv from "dotenv";
 import cors from "cors";
 dotenv.config();
 const app = express();
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(cookieParser());
 
 // Connect to database
 connectDB();
@@ -17,10 +20,8 @@ const corsOptions = {
       ? "https://mern-advance-auth-system.vercel.app"
       : "http://localhost:5173",
   credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(cookieParser());
 
 // Root route
 app.get("/", (req, res) => {
