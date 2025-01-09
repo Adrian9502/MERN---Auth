@@ -4,12 +4,9 @@ import authRoutes from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import cors from "cors";
-import path from "path";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
-
-const __dirname = path.resolve();
 
 // Connect to database
 connectDB();
@@ -29,20 +26,10 @@ app.use(cookieParser());
 // API Routes - these should come BEFORE the static file handling
 app.use("/api/auth", authRoutes);
 
-// Production static file serving
-if (process.env.NODE_ENV === "production") {
-  // Serve static files
-  app.use(express.static(path.join(__dirname, "/frontend/dist")));
-
-  // Handle all other routes by serving the React app
-  app.get("*", (req, res, next) => {
-    try {
-      res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-    } catch (error) {
-      next(error);
-    }
-  });
-}
+// Test route
+app.get("/api/test", (req, res) => {
+  res.json({ message: "This is a test route!" });
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -54,5 +41,4 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`-BACKEND SERVER RUNNING ON PORT: ${PORT}...`);
   console.log("Environment:", process.env.NODE_ENV);
-  console.log("dirname:", __dirname);
 });
