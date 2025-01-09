@@ -6,6 +6,7 @@
     "dev": "nodemon index.js",
     "start": "node index.js"
   },
+  "type": "module",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.7",
