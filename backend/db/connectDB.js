@@ -3,8 +3,6 @@ import mongoose from "mongoose";
 // MongoDB connection
 export default async function connectDB() {
   try {
-    console.log("process.env.MONGO_URI: ", process.env.MONGO_URI);
-
     const conn = await mongoose.connect(process.env.MONGO_URI);
     console.log("CONNECTED TO MONGODB: ", conn.connection.host);
   } catch (error) {
