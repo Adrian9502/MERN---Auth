@@ -18,7 +18,7 @@ connectDB();
 const corsOptions = {
   origin:
     process.env.NODE_ENV === "production"
-      ? "http://localhost:5000" // production URL
+      ? "https://mern-advance-auth-system.vercel.app/" // production URL
       : "http://localhost:5173", // development URL
   credentials: true,
 };
