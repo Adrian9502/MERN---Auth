@@ -52,6 +52,7 @@ export const useAuthStore = create((set) => ({
       set({
         error: error.response.data.message || "Error logging in",
         isLoading: false,
+        isAuthenticated: false,
       });
       throw error;
     }
@@ -103,14 +104,17 @@ export const useAuthStore = create((set) => ({
         user: response.data.user,
         isAuthenticated: true,
         isCheckingAuth: false,
+        error: null,
       });
     } catch (error) {
+      // Don't set error for authentication checks that fail due to no token
       set({
-        error: error.response.data.message || null,
+        user: null,
         isCheckingAuth: false,
         isAuthenticated: false,
       });
-      throw error;
+
+      console.error("Error checking auth: ", error.response.message);
     }
   },
   // forgot password

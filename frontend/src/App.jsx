@@ -10,28 +10,48 @@ import ForgotPassword from "./pages/ForgotPassword";
 import { useEffect } from "react";
 import LoadingSpinner from "./components/LoadingSpinner";
 import ResetPassword from "./pages/ResetPassword";
+import NotFound from "./pages/NotFound";
 // protect routes that require authentication
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, user } = useAuthStore();
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace></Navigate>;
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated, user, isCheckingAuth } = useAuthStore();
+
+  // First check if we're still checking auth
+  if (isCheckingAuth) {
+    return <LoadingSpinner />;
   }
+
+  // Then check authentication
+  if (!isAuthenticated || !user) {
+    console.log("Not authenticated, redirecting to login");
+    return <Navigate to="/login" replace />;
+  }
+
+  // Finally check verification
   if (!user.isVerified) {
-    return <Navigate to="/verify-email" replace></Navigate>;
+    return <Navigate to="/verify-email" replace />;
   }
+
   return children;
 };
 
 // redirect authenticated user to home page
-const RedirectAuthenticateduser = ({ children }) => {
-  const { isAuthenticated, user } = useAuthStore();
+const RedirectAuthenticatedUser = ({ children }) => {
+  const { isAuthenticated, user, isCheckingAuth } = useAuthStore();
 
-  if (isAuthenticated && user.isVerified) {
+  // Don't show any errors during the initial auth check on login/signup pages
+  if (isCheckingAuth) {
+    return <LoadingSpinner />;
+  }
+
+  // Only redirect if user is authenticated and verified
+  if (isAuthenticated && user && user.isVerified) {
     return <Navigate to="/" replace />;
   }
+
   return children;
 };
+
 function App() {
   const { isCheckingAuth, checkAuth } = useAuthStore();
   useEffect(() => {
@@ -77,36 +97,38 @@ function App() {
         <Route
           path="/signup"
           element={
-            <RedirectAuthenticateduser>
+            <RedirectAuthenticatedUser>
               <Signup />
-            </RedirectAuthenticateduser>
+            </RedirectAuthenticatedUser>
           }
         />
         <Route
           path="/login"
           element={
-            <RedirectAuthenticateduser>
+            <RedirectAuthenticatedUser>
               <Login />
-            </RedirectAuthenticateduser>
+            </RedirectAuthenticatedUser>
           }
         />
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route
           path="/forgot-password"
           element={
-            <RedirectAuthenticateduser>
+            <RedirectAuthenticatedUser>
               <ForgotPassword />
-            </RedirectAuthenticateduser>
+            </RedirectAuthenticatedUser>
           }
         />
         <Route
           path="/reset-password/:token"
           element={
-            <RedirectAuthenticateduser>
+            <RedirectAuthenticatedUser>
               <ResetPassword />
-            </RedirectAuthenticateduser>
+            </RedirectAuthenticatedUser>
           }
         />
+        {/* catch all routes */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Toaster />
     </main>
